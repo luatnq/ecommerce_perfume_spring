@@ -28,5 +28,6 @@ public class AWSConfiguration {
                 .withCredentials(new AWSStaticCredentialsProvider(basicAWSCredentials))
                 .withRegion(region)
                 .build();
+//        return null;
     }
 }

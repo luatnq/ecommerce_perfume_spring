@@ -29,7 +29,7 @@ public class PerfumeServiceImpl implements PerfumeService {
 
     private final PerfumeRepository perfumeRepository;
     private final ReviewRepository reviewRepository;
-    private AmazonS3 amazonS3;
+    private final AmazonS3 amazonS3;
 
     @Value("${aws.s3.bucket}")
     private String bucketName;
