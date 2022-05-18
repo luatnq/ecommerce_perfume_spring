@@ -1,5 +1,6 @@
 package com.example.ecommerce.configuration;
 
+import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
@@ -20,14 +21,14 @@ public class AWSConfiguration {
     private String region;
 
     @Bean
-    public AmazonS3 getAmazonS3Cient() {
-        BasicAWSCredentials basicAWSCredentials = new BasicAWSCredentials("AKIARWBH4GY3FLTHRSGX", "dnPOe8efRCgS9lKboxA4K5Sg5dcucbNkWjUjH17c");
-        // Get AmazonS3 client and return the s3Client object.
+    public AmazonS3 s3() {
+        AWSCredentials awsCredentials =
+                new BasicAWSCredentials(accessKeyId, accessKeyId);
         return AmazonS3ClientBuilder
                 .standard()
-                .withCredentials(new AWSStaticCredentialsProvider(basicAWSCredentials))
-                .withRegion(region)
+                .withRegion("ap-southeast-1")
+                .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
                 .build();
-//        return null;
+
     }
 }

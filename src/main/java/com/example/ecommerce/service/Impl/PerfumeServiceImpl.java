@@ -1,7 +1,9 @@
 package com.example.ecommerce.service.Impl;
 
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.example.ecommerce.domain.Perfume;
 import com.example.ecommerce.repository.PerfumeRepository;
@@ -17,10 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.UUID;
+import java.io.InputStream;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -142,7 +142,7 @@ public class PerfumeServiceImpl implements PerfumeService {
             if (file != null) {
                 String resultFilename = generateFileName(file);
                 amazonS3.putObject(new PutObjectRequest(bucketName, resultFilename, fileConvert)
-                        .withCannedAcl(CannedAccessControlList.PublicRead));
+                        .withCannedAcl(CannedAccessControlList.Private));
                 perfume.setFilename(resultFilename);
             } else {
                 perfume.setFilename("empty.jpg");
@@ -150,6 +150,23 @@ public class PerfumeServiceImpl implements PerfumeService {
         }
         return perfumeRepository.save(perfume);
     }
+
+//    public void upload(String path,
+//                       String fileName,
+//                       Optional<Map<String, String>> optionalMetaData,
+//                       InputStream inputStream) {
+//        ObjectMetadata objectMetadata = new ObjectMetadata();
+//        optionalMetaData.ifPresent(map -> {
+//            if (!map.isEmpty()) {
+//                map.forEach(objectMetadata::addUserMetadata);
+//            }
+//        });
+//        try {
+//            amazonS3.putObject(path, fileName, inputStream, objectMetadata);
+//        } catch (AmazonServiceException e) {
+//            throw new IllegalStateException("Failed to upload the file", e);
+//        }
+//    }
 
     @Override
     @Transactional
