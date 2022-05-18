@@ -143,7 +143,7 @@ public class PerfumeServiceImpl implements PerfumeService {
                 String resultFilename = generateFileName(file);
                 amazonS3.putObject(new PutObjectRequest(bucketName, resultFilename, fileConvert)
                         .withCannedAcl(CannedAccessControlList.PublicRead));
-                perfume.setFilename(resultFilename);
+                perfume.setFilename("https://aibles-squad3.s3.ap-southeast-1.amazonaws.com/".concat(resultFilename));
             } else {
                 perfume.setFilename("empty.jpg");
             }
@@ -151,22 +151,6 @@ public class PerfumeServiceImpl implements PerfumeService {
         return perfumeRepository.save(perfume);
     }
 
-//    public void upload(String path,
-//                       String fileName,
-//                       Optional<Map<String, String>> optionalMetaData,
-//                       InputStream inputStream) {
-//        ObjectMetadata objectMetadata = new ObjectMetadata();
-//        optionalMetaData.ifPresent(map -> {
-//            if (!map.isEmpty()) {
-//                map.forEach(objectMetadata::addUserMetadata);
-//            }
-//        });
-//        try {
-//            amazonS3.putObject(path, fileName, inputStream, objectMetadata);
-//        } catch (AmazonServiceException e) {
-//            throw new IllegalStateException("Failed to upload the file", e);
-//        }
-//    }
 
     @Override
     @Transactional
