@@ -142,7 +142,7 @@ public class PerfumeServiceImpl implements PerfumeService {
             if (file != null) {
                 String resultFilename = generateFileName(file);
                 amazonS3.putObject(new PutObjectRequest(bucketName, resultFilename, fileConvert)
-                        .withCannedAcl(CannedAccessControlList.Private));
+                        .withCannedAcl(CannedAccessControlList.PublicRead));
                 perfume.setFilename(resultFilename);
             } else {
                 perfume.setFilename("empty.jpg");

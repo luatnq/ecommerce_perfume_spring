@@ -23,7 +23,7 @@ public class AWSConfiguration {
     @Bean
     public AmazonS3 s3() {
         AWSCredentials awsCredentials =
-                new BasicAWSCredentials(accessKeyId, accessKeyId);
+                new BasicAWSCredentials(accessKeyId, secretAccessKey);
         return AmazonS3ClientBuilder
                 .standard()
                 .withRegion("ap-southeast-1")
